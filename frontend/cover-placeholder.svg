@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="560" viewBox="0 0 420 560">
+  <rect width="420" height="560" fill="#e9e5d9"/>
+  <path d="M92 124h236v312H92z" fill="#245c43"/>
+  <path d="M116 154h188v8H116zm0 22h160v5H116zm0 16h173v5H116z" fill="#d7a45b"/>
+  <text x="210" y="286" fill="#fffefa" font-family="Georgia,serif" font-size="32" text-anchor="middle">Biblioteca</text>
+  <text x="210" y="326" fill="#fffefa" font-family="Georgia,serif" font-size="32" text-anchor="middle">Aberta</text>
+  <text x="210" y="382" fill="#e7c58d" font-family="Arial,sans-serif" font-size="16" text-anchor="middle">CAPA INDISPONÍVEL</text>
+</svg>

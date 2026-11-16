@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão do acervo | Biblioteca Aberta</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/index.html">Biblioteca <span>Aberta</span></a>
+    <nav aria-label="Navegação principal">
+      <a href="/frontend/catalogo.html">Catálogo</a><a href="/frontend/emprestimos.html">Meus empréstimos</a>
+      <a href="/frontend/livros.html" data-admin-only hidden>Gerenciar livros</a>
+      <a href="/frontend/admin-emprestimos.html" data-admin-only hidden>Empréstimos</a>
+      <span data-user-greeting hidden aria-live="polite"></span>
+      <a href="/frontend/login.html" data-login-link>Entrar</a><button class="link-button" type="button" data-logout hidden>Sair</button>
+    </nav>
+  </header>
+  <main class="page-main">
+    <p class="eyebrow">VISÃO ADMINISTRATIVA</p><h1 class="page-title">Gerenciar acervo</h1>
+    <section class="panel">
+      <h2 id="form-title">Cadastrar livro</h2>
+      <form id="livro-form" class="form-grid">
+        <label class="field">Título<input name="titulo" required maxlength="180"></label>
+        <label class="field">Autor<input name="autor" required maxlength="140"></label>
+        <label class="field">Categoria<input name="categoria" required maxlength="80"></label>
+        <label class="field">ISBN (opcional)<input name="isbn" maxlength="20"></label>
+        <label class="field">Quantidade de exemplares<input name="exemplares" type="number" min="1" value="1" required></label>
+        <label class="field">URL da capa (opcional)<input name="capa_url" type="url" placeholder="https://..."></label>
+        <label class="field field-wide">Sinopse<textarea name="sinopse" maxlength="2000"></textarea></label>
+        <div class="form-actions"><button type="submit">Salvar livro</button><button type="button" class="button-secondary" id="cancelar-edicao">Limpar formulário</button></div>
+      </form>
+      <p class="form-message" id="livro-message" role="status"></p>
+    </section>
+    <section class="panel">
+      <h2>Livros cadastrados</h2>
+      <div class="table-wrap"><table><thead><tr><th>Capa</th><th>Título / autor</th><th>Categoria</th><th>Disponíveis</th><th>Ações</th></tr></thead><tbody id="livros-tbody"></tbody></table></div>
+    </section>
+  </main>
+  <footer><p>Desenvolvido por: <strong>Miguel Fogaça Alves Pereira</strong> | Turma: <strong>M32</strong> | 2026</p></footer>
+  <script src="/frontend/common.js" defer></script><script src="/frontend/livros.js" defer></script>
+</body>
+</html>

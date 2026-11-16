@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus empréstimos | Biblioteca Aberta</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/index.html">Biblioteca <span>Aberta</span></a>
+    <nav aria-label="Navegação principal">
+      <a href="/frontend/catalogo.html">Catálogo</a><a href="/frontend/emprestimos.html">Meus empréstimos</a>
+      <a href="/frontend/livros.html" data-admin-only hidden>Gerenciar livros</a>
+      <a href="/frontend/admin-emprestimos.html" data-admin-only hidden>Empréstimos</a>
+      <span data-user-greeting hidden aria-live="polite"></span>
+      <a href="/frontend/login.html" data-login-link>Entrar</a><button class="link-button" type="button" data-logout hidden>Sair</button>
+    </nav>
+  </header>
+  <main class="page-main">
+    <p class="eyebrow">ÁREA DO LEITOR</p><h1 class="page-title">Meus empréstimos</h1>
+    <section class="panel">
+      <p id="emprestimos-message" class="hint">Acompanhe os livros emprestados e suas datas de devolução.</p>
+      <div class="table-wrap"><table><thead><tr><th>Livro</th><th>Retirada</th><th>Devolução prevista</th><th>Status</th><th>Ação</th></tr></thead><tbody id="emprestimos-tbody"></tbody></table></div>
+    </section>
+    <a class="button" href="/frontend/catalogo.html">Explorar o catálogo</a>
+  </main>
+  <footer><p>Desenvolvido por: <strong>Miguel Fogaça Alves Pereira</strong> | Turma: <strong>M32</strong> | 2026</p></footer>
+  <script src="/frontend/common.js" defer></script><script src="/frontend/emprestimos.js" defer></script>
+</body>
+</html>

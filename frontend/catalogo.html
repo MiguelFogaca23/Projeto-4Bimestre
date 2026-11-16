@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Consulte livros disponíveis na Biblioteca Aberta.">
+  <title>Biblioteca Aberta | Catálogo</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/index.html">Biblioteca <span>Aberta</span></a>
+    <nav aria-label="Navegação principal">
+      <a href="/frontend/catalogo.html">Catálogo</a>
+      <a href="/frontend/emprestimos.html">Meus empréstimos</a>
+      <a href="/frontend/livros.html" data-admin-only hidden>Gerenciar livros</a>
+      <a href="/frontend/admin-emprestimos.html" data-admin-only hidden>Empréstimos</a>
+      <span data-user-greeting hidden aria-live="polite"></span>
+      <a href="/frontend/login.html" data-login-link>Entrar</a>
+      <button class="link-button" type="button" data-logout hidden>Sair</button>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">LEITURA PARA TODOS</p>
+      <h1>Uma boa história está<br>esperando por você.</h1>
+      <p>Explore o acervo, encontre sua próxima leitura e acompanhe seus empréstimos.</p>
+      <a class="button button-light" href="#acervo">Explorar o acervo</a>
+    </section>
+    <section id="acervo" class="content-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">NOSSO ACERVO</p><h2>Livros disponíveis</h2></div>
+        <div class="search-group">
+          <label for="busca-livros">Buscar por título, autor ou categoria</label>
+          <input id="busca-livros" type="search" placeholder="Ex.: ficção, Machado de Assis">
+        </div>
+      </div>
+      <div id="catalogo" class="book-grid" aria-live="polite"><p>Carregando o catálogo...</p></div>
+    </section>
+    <aside class="notice">
+      <strong>Como funciona?</strong>
+      <p>Entre com sua conta, escolha um livro e solicite o empréstimo. O prazo padrão é de 14 dias.</p>
+    </aside>
+  </main>
+  <footer><p>Desenvolvido por: <strong>Miguel Fogaça Alves Pereira</strong> | Turma: <strong>M32</strong> | 2026</p></footer>
+  <script src="/frontend/common.js" defer></script>
+  <script src="/frontend/catalogo.js" defer></script>
+</body>
+</html>

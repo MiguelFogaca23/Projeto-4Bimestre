@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar | Biblioteca Aberta</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+</head>
+<body class="login-page">
+  <main class="login-layout">
+    <section class="login-intro">
+      <a class="brand login-brand" href="/">Biblioteca <span>Aberta</span></a>
+      <div><p class="eyebrow">UM LUGAR PARA BOAS HISTÓRIAS</p><h1>Sua próxima leitura começa aqui.</h1><p>Entre para reservar livros e acompanhar seus empréstimos. Novas ideias esperam por você.</p></div>
+      <a class="catalog-link" href="/frontend/catalogo.html">Conhecer o catálogo <span aria-hidden="true">→</span></a>
+    </section>
+    <section class="panel login-card" aria-labelledby="login-title">
+    <div class="login-icon" aria-hidden="true">B</div>
+    <p class="eyebrow">BEM-VINDO(A) DE VOLTA</p>
+    <h2 id="login-title">Entrar na sua conta</h2>
+    <p class="login-description">Informe seus dados para acessar a biblioteca.</p>
+    <form id="login-form">
+      <label class="field">E-mail<input name="email" type="email" autocomplete="username" required></label>
+      <label class="field">Senha<input name="senha" type="password" autocomplete="current-password" required></label>
+      <button type="submit">Entrar</button>
+      <p class="form-message" id="login-message" role="status"></p>
+    </form>
+    <p class="auth-switch">Ainda não tem uma conta? <a href="/frontend/cadastro.html">Criar conta</a></p>
+    <a class="mobile-catalog-link" href="/frontend/catalogo.html">Prefere explorar primeiro? Ver o catálogo</a>
+    </section>
+  </main>
+  <footer class="login-footer"><p>Desenvolvido por: <strong>Miguel Fogaça Alves Pereira</strong> | Turma: <strong>M32</strong> | 2026</p></footer>
+  <script src="/frontend/common.js" defer></script><script src="/frontend/login.js" defer></script>
+</body>
+</html>

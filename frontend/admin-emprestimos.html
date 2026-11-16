@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empréstimos | Biblioteca Aberta</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/index.html">Biblioteca <span>Aberta</span></a>
+    <nav aria-label="Navegação principal">
+      <a href="/frontend/catalogo.html">Catálogo</a><a href="/frontend/emprestimos.html">Meus empréstimos</a>
+      <a href="/frontend/livros.html" data-admin-only hidden>Gerenciar livros</a>
+      <a href="/frontend/admin-emprestimos.html" data-admin-only hidden>Empréstimos</a>
+      <span data-user-greeting hidden aria-live="polite"></span>
+      <a href="/frontend/login.html" data-login-link>Entrar</a><button class="link-button" type="button" data-logout hidden>Sair</button>
+    </nav>
+  </header>
+  <main class="page-main">
+    <p class="eyebrow">VISÃO ADMINISTRATIVA</p><h1 class="page-title">Controle de empréstimos</h1>
+    <section class="panel">
+      <div class="table-wrap"><table><thead><tr><th>Leitor</th><th>Livro</th><th>Retirada</th><th>Devolução prevista</th><th>Status</th><th>Ação</th></tr></thead><tbody id="admin-loans-body"></tbody></table></div>
+      <p id="admin-loans-message" class="form-message" role="status"></p>
+    </section>
+  </main>
+  <footer><p>Desenvolvido por: <strong>[Nome completo do aluno]</strong> | Turma: <strong>M32</strong> | 2026</p></footer>
+  <script src="/frontend/common.js" defer></script><script src="/frontend/admin-emprestimos.js" defer></script>
+</body>
+</html>

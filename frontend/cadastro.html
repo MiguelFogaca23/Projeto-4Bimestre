@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar conta | Biblioteca Aberta</title>
+  <link rel="stylesheet" href="/frontend/styles.css">
+</head>
+<body class="login-page">
+  <main class="login-layout">
+    <section class="login-intro">
+      <a class="brand login-brand" href="/">Biblioteca <span>Aberta</span></a>
+      <div>
+        <p class="eyebrow">SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</p>
+        <h1>Faça parte da nossa biblioteca.</h1>
+        <p>Crie sua conta para reservar livros e acompanhar seus empréstimos em um só lugar.</p>
+      </div>
+      <a class="catalog-link" href="/frontend/catalogo.html">Conhecer o catálogo <span aria-hidden="true">→</span></a>
+    </section>
+    <section class="panel login-card" aria-labelledby="register-title">
+      <div class="login-icon" aria-hidden="true">B</div>
+      <p class="eyebrow">CADASTRO DE LEITOR</p>
+      <h2 id="register-title">Criar sua conta</h2>
+      <p class="login-description">Preencha seus dados para começar a explorar.</p>
+      <form id="register-form">
+        <label class="field">Nome completo
+          <input name="nome" type="text" autocomplete="name" maxlength="120" required>
+        </label>
+        <label class="field">E-mail
+          <input name="email" type="email" autocomplete="email" maxlength="180" required>
+        </label>
+        <label class="field">Senha (mínimo 8 caracteres)
+          <input name="senha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+        </label>
+        <label class="field">Confirme sua senha
+          <input name="confirmar-senha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+        </label>
+        <button type="submit">Criar conta</button>
+        <p class="form-message" id="register-message" role="status"></p>
+      </form>
+      <p class="auth-switch">Já tem uma conta? <a href="/frontend/login.html">Entrar</a></p>
+    </section>
+  </main>
+  <footer class="login-footer"><p>Desenvolvido por: <strong>Miguel Fogaça Alves Pereira</strong> | Turma: <strong>M32</strong> | 2026</p></footer>
+  <script src="/frontend/common.js" defer></script><script src="/frontend/cadastro.js" defer></script>
+</body>
+</html>

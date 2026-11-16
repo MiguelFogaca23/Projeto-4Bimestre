@@ -1,0 +1,16 @@
+{
+  "name": "biblioteca-aberta",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistema web de catálogo e empréstimo de livros",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
+  }
+}
