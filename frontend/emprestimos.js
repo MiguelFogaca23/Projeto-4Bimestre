@@ -11,7 +11,7 @@ async function carregarEmprestimos() {
   if (!loans.length) {
     const row = document.createElement('tr');
     const cell = document.createElement('td');
-    cell.colSpan = 5;
+    cell.colSpan = 6;
     cell.className = 'empty-state';
     cell.textContent = 'Você ainda não possui empréstimos. Explore o catálogo para escolher sua próxima leitura.';
     row.append(cell);
@@ -29,12 +29,15 @@ async function carregarEmprestimos() {
     const badge = document.createElement('span');
     badge.className = 'status';
     badge.textContent = loan.status === 'ativo' ? 'Ativo' : 'Devolvido';
-    if (loan.status === 'ativo' && String(loan.devolucao_prevista).slice(0, 10) < new Date().toISOString().slice(0, 10)) {
+    if (loan.status === 'ativo' && Number(loan.dias_atraso) > 0) {
       badge.classList.add('overdue');
       badge.textContent = 'Atrasado';
     }
     status.append(badge);
     row.append(status);
+    const fine = document.createElement('td');
+    fine.textContent = formatarMulta(loan.multa_centavos);
+    row.append(fine);
     const action = document.createElement('td');
     if (loan.status === 'ativo') {
       const button = document.createElement('button');

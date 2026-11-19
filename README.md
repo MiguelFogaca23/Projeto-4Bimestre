@@ -34,6 +34,7 @@ Troque essas credenciais antes de qualquer implantação pública. O arquivo SQL
 - `/emprestimos.html` — empréstimos e devolução do leitor autenticado.
 - `/livros.html` — CRUD administrativo de livros, inclusive cadastro/exibição da URL da capa.
 - `/admin-emprestimos.html` — visão administrativa e registro de devoluções.
+- Cada empréstimo vence em 14 dias. Após o vencimento, a multa é de R$ 2,00 por dia, calculada automaticamente até a data da devolução. O leitor vê o valor na lista de empréstimos; o painel administrativo destaca os atrasos e o total acumulado.
 - Após entrar, o cookie `HttpOnly` mantém a sessão por até 8 horas enquanto o servidor estiver ativo, e a navegação exibe o nome e o perfil do usuário autenticado. O cookie contém apenas um identificador aleatório; os dados da sessão ficam na memória do servidor. Reiniciar o servidor encerra as sessões ativas.
 
 ## API

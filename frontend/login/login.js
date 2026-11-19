@@ -1,6 +1,16 @@
 let emailGlobal = '';
 const API_BASE_URL = 'http://localhost:3001'; // Define  o host e a porta do servidor
 
+function MostrarSenha() {
+    const senhaInput = document.getElementById('senha');
+    const botao = document.getElementById('BotaoVizualizar');
+    const mostrar = senhaInput.type === 'password';
+
+    senhaInput.type = mostrar ? 'text' : 'password';
+    botao.classList.toggle('is-visible', mostrar);
+    botao.setAttribute('aria-label', `${mostrar ? 'Ocultar' : 'Mostrar'} senha`);
+    botao.setAttribute('aria-pressed', String(mostrar));
+}
 
 async function verificarEmail() {
     const email = document.getElementById("email").value;

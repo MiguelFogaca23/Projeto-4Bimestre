@@ -20,7 +20,18 @@
     <p class="login-description">Informe seus dados para acessar a biblioteca.</p>
     <form id="login-form">
       <label class="field">E-mail<input name="email" type="email" autocomplete="username" required></label>
-      <label class="field">Senha<input name="senha" type="password" autocomplete="current-password" required></label>
+      <label class="field">Senha
+        <span class="password-field">
+          <input id="InputSenha" name="senha" type="password" autocomplete="current-password" required>
+          <button id="BotaoVizualizar" class="password-toggle" type="button" aria-label="Mostrar senha" aria-pressed="false">
+            <svg class="password-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+              <circle cx="12" cy="12" r="2.5"></circle>
+              <path class="eye-slash" d="m4 4 16 16"></path>
+            </svg>
+          </button>
+        </span>
+      </label>
       <button type="submit">Entrar</button>
       <p class="form-message" id="login-message" role="status"></p>
     </form>

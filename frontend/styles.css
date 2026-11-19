@@ -341,6 +341,14 @@ footer p {
   margin-left: auto;
 }
 
+.admin-loans-page {
+  width: min(100% - 40px, 1500px);
+}
+
+.admin-loans-page > section.panel:first-of-type {
+  max-width: none;
+}
+
 .panel h2 {
   margin: 0 0 8px;
   color: var(--green-dark);
@@ -428,6 +436,26 @@ table {
   background: var(--paper);
 }
 
+.admin-loans-table {
+  table-layout: fixed;
+}
+
+.admin-loans-table th,
+.admin-loans-table td {
+  padding: 10px 8px;
+  overflow-wrap: anywhere;
+}
+
+.admin-loans-table th:last-child,
+.admin-loans-table td:last-child {
+  width: 15%;
+}
+
+.admin-loans-table td button {
+  padding: 9px 10px;
+  font-size: .82rem;
+}
+
 th,
 td {
   padding: 14px;
@@ -461,6 +489,16 @@ tbody tr:hover {
 .status.overdue {
   background: #f8e6e3;
   color: #9c3d33;
+}
+
+.overdue-alert {
+  margin: 0 0 18px;
+  padding: 12px 15px;
+  border: 1px solid #f4d0cd;
+  border-radius: var(--radius-control);
+  background: var(--error-bg);
+  color: #9c3d33;
+  font-weight: 600;
 }
 
 /* Mensagens e estados */
@@ -697,6 +735,55 @@ tbody tr:hover {
   box-shadow: 0 0 0 4px var(--focus-ring);
 }
 
+.password-field {
+  position: relative;
+  display: block;
+}
+
+.password-field input {
+  padding-right: 88px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: auto !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+  padding: 5px 8px !important;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--green-dark);
+  font-size: .78rem !important;
+}
+
+.password-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.password-icon .eye-slash {
+  display: none;
+}
+
+.password-toggle.is-visible .eye-slash {
+  display: block;
+}
+
+.password-toggle:hover {
+  background: #edf4ff;
+  box-shadow: none;
+}
+
 .login-card form > button {
   width: 100%;
   min-height: 50px;
@@ -777,12 +864,55 @@ tbody tr:hover {
     margin-top: 24px;
   }
 
+  .admin-loans-page {
+    width: calc(100% - 28px);
+  }
+
   .panel {
     padding: 22px 18px;
   }
 
   .page-main > section.panel:first-of-type {
     max-width: none;
+  }
+
+  .admin-loans-table,
+  .admin-loans-table tbody,
+  .admin-loans-table tr,
+  .admin-loans-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-loans-table thead {
+    display: none;
+  }
+
+  .admin-loans-table tbody tr:not(.empty-row) {
+    margin-bottom: 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .admin-loans-table td:not(.empty-state) {
+    display: grid;
+    grid-template-columns: minmax(110px, 38%) minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .admin-loans-table td:not(.empty-state)::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: .76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .admin-loans-table td button {
+    justify-self: start;
   }
 
   .form-actions > button {

@@ -17,10 +17,11 @@
       <a href="/frontend/login.html" data-login-link>Entrar</a><button class="link-button" type="button" data-logout hidden>Sair</button>
     </nav>
   </header>
-  <main class="page-main">
+  <main class="page-main admin-loans-page">
     <p class="eyebrow">VISÃO ADMINISTRATIVA</p><h1 class="page-title">Controle de empréstimos</h1>
     <section class="panel">
-      <div class="table-wrap"><table><thead><tr><th>Leitor</th><th>Livro</th><th>Retirada</th><th>Devolução prevista</th><th>Status</th><th>Ação</th></tr></thead><tbody id="admin-loans-body"></tbody></table></div>
+      <p id="admin-overdue-alert" class="overdue-alert" role="alert" aria-live="assertive" hidden></p>
+      <div class="table-wrap"><table class="admin-loans-table"><thead><tr><th>Leitor</th><th>Livro</th><th>Retirada</th><th>Devolução prevista</th><th>Data da devolução</th><th>Status</th><th>Multa</th><th>Ação</th></tr></thead><tbody id="admin-loans-body"></tbody></table></div>
       <p id="admin-loans-message" class="form-message" role="status"></p>
     </section>
   </main>

@@ -25,7 +25,16 @@
       <h2>Login</h2>
       <p id="nomeUsuario"></p>
       <label for="senha">Digite sua senha</label>
-      <input type="password" id="senha" placeholder="Digite sua senha" value="12345" required />
+      <div class="password-field">
+        <input type="password" id="senha" placeholder="Digite sua senha" value="12345" required />
+        <button id="BotaoVizualizar" type="button" onclick="MostrarSenha()" aria-label="Mostrar senha" aria-pressed="false">
+          <svg class="password-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+            <circle cx="12" cy="12" r="2.5"></circle>
+            <path class="eye-slash" d="m4 4 16 16"></path>
+          </svg>
+        </button>
+      </div>
       <button onclick="verificarSenha()">Entrar</button>
     </div>
 

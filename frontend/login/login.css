@@ -69,6 +69,54 @@ body, html {
     display: block;
 }
 
+.password-field {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+}
+
+.password-field input {
+    padding-right: 90px;
+}
+
+.password-field button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    min-width: 78px;
+    padding: 0.8rem 0.5rem;
+    border: 0;
+    background: transparent;
+    color: #2d4a2d;
+    box-shadow: none;
+}
+
+.password-icon {
+    width: 22px;
+    height: 22px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.password-icon .eye-slash {
+    display: none;
+}
+
+.password-field button.is-visible .eye-slash {
+    display: block;
+}
+
+.password-field button:hover {
+    transform: none;
+    background: #e8fff5;
+    box-shadow: none;
+}
+
 /* ===== BOTÃO ===== */
 .form-container button {
     width: 100%;

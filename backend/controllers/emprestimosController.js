@@ -10,7 +10,9 @@ async function listar(req, res) {
   }
   const result = await db.query(
     `SELECT e.id, e.leitor_id, e.livro_id, e.emprestado_em, e.devolucao_prevista,
-            e.devolvido_em, e.status, l.titulo, l.autor, u.nome AS leitor
+            e.devolvido_em, e.status, l.titulo, l.autor, u.nome AS leitor,
+            GREATEST(COALESCE(e.devolvido_em, CURRENT_DATE) - e.devolucao_prevista, 0)::int AS dias_atraso,
+            GREATEST(COALESCE(e.devolvido_em, CURRENT_DATE) - e.devolucao_prevista, 0) * 200 AS multa_centavos
        FROM emprestimos e
        JOIN livros l ON l.id = e.livro_id
        JOIN leitores le ON le.id = e.leitor_id

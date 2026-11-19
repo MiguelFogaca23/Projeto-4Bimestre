@@ -20,6 +20,68 @@ function mostrarMensagem(elemento, texto, erro = false) {
   elemento.classList.toggle('error', erro);
 }
 
+function formatarMulta(centavos) {
+  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
+    .format(Number(centavos) / 100);
+}
+
+function configurarCapa(img, livro) {
+  const placeholder = '/frontend/cover-placeholder.svg';
+  const candidates = [];
+  const addCandidate = (url) => {
+    if (!url || candidates.includes(url)) return;
+    try {
+      const parsed = new URL(url, window.location.href);
+      if (parsed.hostname === 'covers.openlibrary.org' && parsed.pathname.includes('/isbn/')) {
+        parsed.searchParams.set('default', 'false');
+      }
+      candidates.push(parsed.href);
+    } catch (error) {
+      console.warn('URL de capa inválida:', error);
+    }
+  };
+
+  addCandidate(livro.capa_url);
+  if (livro.isbn) addCandidate(`https://covers.openlibrary.org/b/isbn/${encodeURIComponent(livro.isbn)}-L.jpg?default=false`);
+
+  let candidateIndex = 0;
+  let searchAttempted = false;
+  img.onerror = async () => {
+    if (candidateIndex < candidates.length) {
+      img.src = candidates[candidateIndex++];
+      return;
+    }
+    if (searchAttempted) {
+      img.onerror = null;
+      img.src = placeholder;
+      return;
+    }
+    searchAttempted = true;
+
+    try {
+      const params = new URLSearchParams({ fields: 'cover_i', limit: '5' });
+      if (livro.titulo) params.set('title', livro.titulo);
+      if (livro.autor) params.set('author', livro.autor);
+      const response = await fetch(`https://openlibrary.org/search.json?${params}`);
+      if (!response.ok) throw new Error(`Open Library respondeu com HTTP ${response.status}.`);
+      const result = await response.json();
+      const bookWithCover = Array.isArray(result.docs) ? result.docs.find((item) => item.cover_i) : null;
+      if (bookWithCover) {
+        addCandidate(`https://covers.openlibrary.org/b/id/${bookWithCover.cover_i}-L.jpg?default=false`);
+        img.src = candidates[candidateIndex++];
+        return;
+      }
+    } catch (error) {
+      console.warn('Não foi possível buscar outra capa para o livro:', error);
+    }
+
+    img.onerror = null;
+    img.src = placeholder;
+  };
+  if (candidates.length) img.src = candidates[candidateIndex++];
+  else img.onerror();
+}
+
 async function atualizarNavegacao() {
   const data = await api('/api/auth/me');
   const usuario = data.autenticado ? data.usuario : null;
@@ -53,6 +115,8 @@ async function atualizarNavegacao() {
 
 window.api = api;
 window.mostrarMensagem = mostrarMensagem;
+window.formatarMulta = formatarMulta;
+window.configurarCapa = configurarCapa;
 window.atualizarNavegacao = atualizarNavegacao;
 
 document.addEventListener('DOMContentLoaded', () => {

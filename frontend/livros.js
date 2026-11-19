@@ -19,11 +19,10 @@ async function carregarLivros() {
     const row = document.createElement('tr');
     const coverCell = document.createElement('td');
     const img = document.createElement('img');
-    img.src = book.capa_url || '/frontend/cover-placeholder.svg';
     img.alt = `Capa de ${book.titulo}`;
     img.width = 42;
     img.height = 56;
-    img.onerror = () => { img.src = '/frontend/cover-placeholder.svg'; };
+    configurarCapa(img, book);
     coverCell.append(img);
     const titleCell = document.createElement('td');
     titleCell.textContent = `${book.titulo} — ${book.autor}`;

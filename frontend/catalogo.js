@@ -5,10 +5,9 @@ function criarCard(livro) {
   const card = document.createElement('article');
   card.className = 'book-card';
   const img = document.createElement('img');
-  img.src = livro.capa_url || '/frontend/cover-placeholder.svg';
   img.alt = `Capa do livro ${livro.titulo}`;
   img.loading = 'lazy';
-  img.onerror = () => { img.src = '/frontend/cover-placeholder.svg'; };
+  configurarCapa(img, livro);
   const info = document.createElement('div');
   info.className = 'book-info';
   const title = document.createElement('h3');
