@@ -92,6 +92,3 @@ erDiagram
 - `frontend/`: páginas semânticas e CSS externo.
 - `documentacao/biblioteca4.sql`: DDL e carga inicial.
 
-## Entrega acadêmica
-
-Antes de entregar, substitua `[Nome completo do aluno]` no rodapé das páginas pelo nome completo real do aluno (a turma M32 já está preenchida). Ajuste o nome do repositório ao padrão solicitado pelo professor, por exemplo `NomeDoAluno_3bim_BibliotecaAberta`, e adicione `rjhalmeman@gmail.com` como colaborador pelo GitHub. Não envie `.env` nem credenciais reais ao repositório.
