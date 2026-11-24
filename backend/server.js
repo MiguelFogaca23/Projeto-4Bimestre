@@ -31,6 +31,23 @@ app.use(express.static(frontendPath));
 app.use('/frontend', express.static(frontendPath));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
+// Compatibilidade com URLs abertas antes da organização temporária das pastas.
+const legacyFrontendPages = new Set([
+  'catalogo.html',
+  'cadastro.html',
+  'login.html',
+  'livros.html',
+  'emprestimos.html',
+  'admin-emprestimos.html',
+]);
+
+app.get('/frontend/pages/:page', (req, res) => {
+  if (legacyFrontendPages.has(req.params.page)) {
+    return res.redirect(301, `/frontend/${req.params.page}`);
+  }
+  return res.status(404).json({ error: 'Página não encontrada' });
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });

@@ -1,5 +1,7 @@
-const catalogo = document.getElementById('catalogo');
-const campoBusca = document.getElementById('busca-livros');
+const elements = {
+  catalog: document.getElementById('catalogo'),
+  search: document.getElementById('busca-livros'),
+};
 
 function criarCard(livro) {
   const card = document.createElement('article');
@@ -43,18 +45,22 @@ function criarCard(livro) {
 
 async function carregarCatalogo() {
   try {
-    const busca = encodeURIComponent(campoBusca.value.trim());
+    const busca = encodeURIComponent(elements.search.value.trim());
     const livros = await api(`/api/livros?busca=${busca}`);
-    catalogo.replaceChildren();
+    elements.catalog.replaceChildren();
     if (!livros.length) {
-      catalogo.innerHTML = '<p class="empty-state">Nenhum livro encontrado.</p>';
+      elements.catalog.innerHTML = '<p class="empty-state">Nenhum livro encontrado.</p>';
       return;
     }
-    livros.forEach((livro) => catalogo.append(criarCard(livro)));
+    livros.forEach((livro) => elements.catalog.append(criarCard(livro)));
   } catch (error) {
-    catalogo.textContent = error.message;
+    elements.catalog.textContent = error.message;
   }
 }
 
-campoBusca.addEventListener('input', carregarCatalogo);
-carregarCatalogo();
+function inicializarPaginaCatalogo() {
+  elements.search.addEventListener('input', carregarCatalogo);
+  carregarCatalogo();
+}
+
+inicializarPaginaCatalogo();

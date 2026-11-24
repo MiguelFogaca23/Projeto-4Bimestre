@@ -2,7 +2,6 @@ const livroForm = document.getElementById('livro-form');
 const livrosBody = document.getElementById('livros-tbody');
 const livroMessage = document.getElementById('livro-message');
 let editingId = null;
-let cachedBooks = [];
 
 function resetForm() {
   editingId = null;
@@ -13,7 +12,6 @@ function resetForm() {
 
 async function carregarLivros() {
   const books = await api('/api/livros');
-  cachedBooks = books;
   livrosBody.replaceChildren();
   books.forEach((book) => {
     const row = document.createElement('tr');
@@ -61,7 +59,7 @@ async function carregarLivros() {
   });
 }
 
-livroForm.addEventListener('submit', async (event) => {
+async function salvarLivro(event) {
   event.preventDefault();
   const data = Object.fromEntries(new FormData(livroForm).entries());
   data.exemplares = Number(data.exemplares);
@@ -76,14 +74,21 @@ livroForm.addEventListener('submit', async (event) => {
   } catch (error) {
     mostrarMensagem(livroMessage, error.message, true);
   }
-});
+}
 
-document.getElementById('cancelar-edicao').addEventListener('click', resetForm);
-
-atualizarNavegacao().then((data) => {
-  if (!data.autenticado || data.usuario.perfil !== 'admin') {
-    window.location.href = '/frontend/login.html';
-    return;
+async function inicializarPaginaLivros() {
+  try {
+    const data = await atualizarNavegacao();
+    if (!data.autenticado || data.usuario.perfil !== 'admin') {
+      window.location.href = '/frontend/login.html';
+      return;
+    }
+    livroForm.addEventListener('submit', salvarLivro);
+    document.getElementById('cancelar-edicao').addEventListener('click', resetForm);
+    await carregarLivros();
+  } catch (error) {
+    mostrarMensagem(livroMessage, error.message, true);
   }
-  return carregarLivros();
-}).catch((error) => mostrarMensagem(livroMessage, error.message, true));
+}
+
+inicializarPaginaLivros();

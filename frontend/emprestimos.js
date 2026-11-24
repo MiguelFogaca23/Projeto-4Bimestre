@@ -1,69 +1,99 @@
-const loansBody = document.getElementById('emprestimos-tbody');
-const loansMessage = document.getElementById('emprestimos-message');
+const elements = {
+  loansBody: document.getElementById('emprestimos-tbody'),
+  message: document.getElementById('emprestimos-message'),
+};
 
-function formatarData(value) {
-  return new Date(`${String(value).slice(0, 10)}T12:00:00`).toLocaleDateString('pt-BR');
+function criarCelula(texto) {
+  const cell = document.createElement('td');
+  cell.textContent = texto;
+  return cell;
+}
+
+function criarCelulaStatus(loan) {
+  const cell = document.createElement('td');
+  const badge = document.createElement('span');
+  badge.className = 'status';
+  badge.textContent = loan.status === 'ativo' ? 'Ativo' : 'Devolvido';
+
+  if (loan.status === 'ativo' && Number(loan.dias_atraso) > 0) {
+    badge.classList.add('overdue');
+    badge.textContent = 'Atrasado';
+  }
+
+  cell.append(badge);
+  return cell;
+}
+
+function criarCelulaAcao(loan) {
+  const cell = document.createElement('td');
+
+  if (loan.status !== 'ativo') {
+    cell.textContent = '—';
+    return cell;
+  }
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.textContent = 'Registrar devolução';
+  button.addEventListener('click', async () => {
+    try {
+      await api(`/api/emprestimos/${loan.id}/devolver`, { method: 'PUT' });
+      await carregarEmprestimos();
+    } catch (error) {
+      mostrarMensagem(elements.message, error.message, true);
+    }
+  });
+  cell.append(button);
+  return cell;
+}
+
+function criarLinhaEmprestimo(loan) {
+  const row = document.createElement('tr');
+  row.append(
+    criarCelula(loan.titulo),
+    criarCelula(formatarData(loan.emprestado_em)),
+    criarCelula(formatarData(loan.devolucao_prevista)),
+    criarCelulaStatus(loan),
+    criarCelula(formatarMulta(loan.multa_centavos)),
+    criarCelulaAcao(loan),
+  );
+  return row;
+}
+
+function renderizarEstadoVazio() {
+  const row = document.createElement('tr');
+  const cell = criarCelula(
+    'Você ainda não possui empréstimos. Explore o catálogo para escolher sua próxima leitura.',
+  );
+  cell.colSpan = 6;
+  cell.className = 'empty-state';
+  row.append(cell);
+  elements.loansBody.append(row);
 }
 
 async function carregarEmprestimos() {
   const loans = await api('/api/emprestimos');
-  loansBody.replaceChildren();
+  elements.loansBody.replaceChildren();
+
   if (!loans.length) {
-    const row = document.createElement('tr');
-    const cell = document.createElement('td');
-    cell.colSpan = 6;
-    cell.className = 'empty-state';
-    cell.textContent = 'Você ainda não possui empréstimos. Explore o catálogo para escolher sua próxima leitura.';
-    row.append(cell);
-    loansBody.append(row);
+    renderizarEstadoVazio();
     return;
   }
-  loans.forEach((loan) => {
-    const row = document.createElement('tr');
-    [loan.titulo, formatarData(loan.emprestado_em), formatarData(loan.devolucao_prevista)].forEach((text) => {
-      const cell = document.createElement('td');
-      cell.textContent = text;
-      row.append(cell);
-    });
-    const status = document.createElement('td');
-    const badge = document.createElement('span');
-    badge.className = 'status';
-    badge.textContent = loan.status === 'ativo' ? 'Ativo' : 'Devolvido';
-    if (loan.status === 'ativo' && Number(loan.dias_atraso) > 0) {
-      badge.classList.add('overdue');
-      badge.textContent = 'Atrasado';
-    }
-    status.append(badge);
-    row.append(status);
-    const fine = document.createElement('td');
-    fine.textContent = formatarMulta(loan.multa_centavos);
-    row.append(fine);
-    const action = document.createElement('td');
-    if (loan.status === 'ativo') {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.textContent = 'Registrar devolução';
-      button.addEventListener('click', async () => {
-        try {
-          await api(`/api/emprestimos/${loan.id}/devolver`, { method: 'PUT' });
-          await carregarEmprestimos();
-        } catch (error) {
-          mostrarMensagem(loansMessage, error.message, true);
-        }
-      });
-      action.append(button);
-    } else {
-      action.textContent = '—';
-    }
-    row.append(action);
-    loansBody.append(row);
-  });
+
+  loans.forEach((loan) => elements.loansBody.append(criarLinhaEmprestimo(loan)));
 }
 
-atualizarNavegacao().then((data) => {
-  if (!data.autenticado) {
-    window.location.href = '/frontend/login.html';
-    return;
+async function inicializarPaginaEmprestimos() {
+  try {
+    const data = await atualizarNavegacao();
+    if (!data.autenticado) {
+      window.location.href = '/frontend/login.html';
+      return;
+    }
+    await carregarEmprestimos();
+  } catch (error) {
+    mostrarMensagem(elements.message, error.message, true);
   }
-  return carregarEmprestimos();
-}).catch((error) => mostrarMensagem(loansMessage, error.message, true));
+}
+
+inicializarPaginaEmprestimos();

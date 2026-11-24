@@ -1,31 +1,46 @@
-function MostrarSenha() {
-  const senhaInput = document.getElementById('InputSenha');
-  const confirmaInput = document.getElementById('InputConfirmarSenha');
-  const botao = document.getElementById('BotaoVizualizar');
-  const mostrar = senhaInput.type === 'password';
+const elements = {
+  password: document.getElementById('InputSenha'),
+  confirmPassword: document.getElementById('InputConfirmarSenha'),
+  togglePassword: document.getElementById('BotaoVizualizar'),
+  form: document.getElementById('login-form'),
+  message: document.getElementById('login-message'),
+};
 
-  senhaInput.type = mostrar ? 'text' : 'password';
-  if (confirmaInput) confirmaInput.type = mostrar ? 'text' : 'password';
-  botao.classList.toggle('is-visible', mostrar);
-  botao.setAttribute('aria-label', `${mostrar ? 'Ocultar' : 'Mostrar'} senha`);
-  botao.setAttribute('aria-pressed', String(mostrar));
+function alternarVisibilidadeSenha() {
+  const mostrar = elements.password.type === 'password';
+
+  elements.password.type = mostrar ? 'text' : 'password';
+  if (elements.confirmPassword) {
+    elements.confirmPassword.type = mostrar ? 'text' : 'password';
+  }
+  elements.togglePassword.classList.toggle('is-visible', mostrar);
+  elements.togglePassword.setAttribute('aria-label', `${mostrar ? 'Ocultar' : 'Mostrar'} senha`);
+  elements.togglePassword.setAttribute('aria-pressed', String(mostrar));
 }
 
-document.getElementById('BotaoVizualizar').addEventListener('click', MostrarSenha);
-
-document.getElementById('login-form').addEventListener('submit', async (event) => {
+async function entrar(event) {
   event.preventDefault();
-  const form = new FormData(event.currentTarget);
-  const message = document.getElementById('login-message');
+  const formData = new FormData(elements.form);
+
   try {
     const user = await api('/api/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email: form.get('email'), senha: form.get('senha') }),
+      body: JSON.stringify({
+        email: formData.get('email'),
+        senha: formData.get('senha'),
+      }),
     });
     window.location.href = user.perfil === 'admin'
       ? '/frontend/livros.html'
       : '/frontend/catalogo.html';
   } catch (error) {
-    mostrarMensagem(message, error.message, true);
+    mostrarMensagem(elements.message, error.message, true);
   }
-});
+}
+
+function inicializarPaginaLogin() {
+  elements.togglePassword.addEventListener('click', alternarVisibilidadeSenha);
+  elements.form.addEventListener('submit', entrar);
+}
+
+inicializarPaginaLogin();

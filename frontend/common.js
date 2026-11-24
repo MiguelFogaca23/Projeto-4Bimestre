@@ -2,6 +2,53 @@ const API_BASE_URL = window.location.port === '5500'
   ? `http://${window.location.hostname}:3001`
   : '';
 
+const THEME_STORAGE_KEY = 'biblioteca-theme';
+
+function temaAtual() {
+  const temaSalvo = localStorage.getItem(THEME_STORAGE_KEY);
+  if (temaSalvo === 'dark' || temaSalvo === 'light') return temaSalvo;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function aplicarTema(tema) {
+  document.documentElement.dataset.theme = tema;
+  document.documentElement.style.colorScheme = tema;
+  document.querySelectorAll('[data-theme-toggle]').forEach((botao) => {
+    const escuro = tema === 'dark';
+    botao.setAttribute('aria-label', escuro ? 'Alternar para tema claro' : 'Alternar para tema escuro');
+    botao.setAttribute('aria-pressed', String(escuro));
+    botao.title = escuro ? 'Usar tema claro' : 'Usar tema escuro';
+    const icone = botao.querySelector('[data-theme-icon]');
+    const texto = botao.querySelector('[data-theme-label]');
+    if (icone) icone.textContent = escuro ? '☀' : '☾';
+    if (texto) texto.textContent = escuro ? 'Claro' : 'Escuro';
+  });
+}
+
+function alternarTema() {
+  const novoTema = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem(THEME_STORAGE_KEY, novoTema);
+  aplicarTema(novoTema);
+}
+
+function configurarAlternadorTema() {
+  let botao = document.querySelector('[data-theme-toggle]');
+  if (!botao) {
+    botao = document.createElement('button');
+    botao.type = 'button';
+    botao.className = 'theme-toggle';
+    botao.dataset.themeToggle = '';
+    botao.innerHTML = '<span data-theme-icon aria-hidden="true"></span><span data-theme-label>Escuro</span>';
+    const navegacao = document.querySelector('.site-header nav');
+    if (navegacao) navegacao.appendChild(botao);
+    else document.body.appendChild(botao);
+  }
+  botao.addEventListener('click', alternarTema);
+  aplicarTema(document.documentElement.dataset.theme || temaAtual());
+}
+
+aplicarTema(temaAtual());
+
 async function api(url, options = {}) {
   const response = await fetch(`${API_BASE_URL}${url}`, {
     credentials: 'include',
@@ -23,6 +70,10 @@ function mostrarMensagem(elemento, texto, erro = false) {
 function formatarMulta(centavos) {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
     .format(Number(centavos) / 100);
+}
+
+function formatarData(value) {
+  return new Date(`${String(value).slice(0, 10)}T12:00:00`).toLocaleDateString('pt-BR');
 }
 
 function configurarCapa(img, livro) {
@@ -116,9 +167,11 @@ async function atualizarNavegacao() {
 window.api = api;
 window.mostrarMensagem = mostrarMensagem;
 window.formatarMulta = formatarMulta;
+window.formatarData = formatarData;
 window.configurarCapa = configurarCapa;
 window.atualizarNavegacao = atualizarNavegacao;
 
 document.addEventListener('DOMContentLoaded', () => {
+  configurarAlternadorTema();
   atualizarNavegacao().catch((error) => console.error(error));
 });
