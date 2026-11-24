@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrar | Biblioteca Aberta</title>
-  <link rel="stylesheet" href="/frontend/styles.css">
+  <link rel="stylesheet" href="/frontend/shared/styles.css">
 </head>
 <body class="login-page">
   <main class="login-layout">
     <section class="login-intro">
       <a class="brand login-brand" href="/">Biblioteca <span>Aberta</span></a>
       <div><p class="eyebrow">UM LUGAR PARA BOAS HISTÓRIAS</p><h1>Sua próxima leitura começa aqui.</h1><p>Entre para reservar livros e acompanhar seus empréstimos. Novas ideias esperam por você.</p></div>
-      <a class="catalog-link" href="/frontend/catalogo.html">Conhecer o catálogo <span aria-hidden="true">→</span></a>
+      <a class="catalog-link" href="/frontend/catalogo/catalogo.html">Conhecer o catálogo <span aria-hidden="true">→</span></a>
     </section>
     <section class="panel login-card" aria-labelledby="login-title">
     <div class="login-icon" aria-hidden="true">B</div>
@@ -35,11 +35,11 @@
       <button type="submit">Entrar</button>
       <p class="form-message" id="login-message" role="status"></p>
     </form>
-    <p class="auth-switch">Ainda não tem uma conta? <a href="/frontend/cadastro.html">Criar conta</a></p>
-    <a class="mobile-catalog-link" href="/frontend/catalogo.html">Prefere explorar primeiro? Ver o catálogo</a>
+    <p class="auth-switch">Ainda não tem uma conta? <a href="/frontend/auth/cadastro.html">Criar conta</a></p>
+    <a class="mobile-catalog-link" href="/frontend/catalogo/catalogo.html">Prefere explorar primeiro? Ver o catálogo</a>
     </section>
   </main>
   <footer class="login-footer"><p>Desenvolvido por: <strong>Miguel Fogaça Alves Pereira</strong> | Turma: <strong>M32</strong> | 2026</p></footer>
-  <script src="/frontend/common.js" defer></script><script src="/frontend/login.js" defer></script>
+  <script src="/frontend/shared/common.js" defer></script><script src="/frontend/auth/login.js" defer></script>
 </body>
 </html>

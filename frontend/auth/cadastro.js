@@ -25,7 +25,7 @@ async function cadastrarUsuario(event) {
         senha,
       }),
     });
-    window.location.href = '/frontend/catalogo.html';
+    window.location.href = '/frontend/catalogo/catalogo.html';
   } catch (error) {
     mostrarMensagem(elements.message, error.message, true);
   } finally {

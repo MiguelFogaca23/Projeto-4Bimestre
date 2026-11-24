@@ -113,7 +113,7 @@ async function inicializarPaginaAdminEmprestimos() {
   try {
     const data = await atualizarNavegacao();
     if (!data.autenticado || data.usuario.perfil !== 'admin') {
-      window.location.href = '/frontend/login.html';
+      window.location.href = '/frontend/auth/login.html';
       return;
     }
     await carregarTodosEmprestimos();

@@ -77,7 +77,7 @@ function formatarData(value) {
 }
 
 function configurarCapa(img, livro) {
-  const placeholder = '/frontend/cover-placeholder.svg';
+  const placeholder = '/frontend/shared/cover-placeholder.svg';
   const candidates = [];
   const addCandidate = (url) => {
     if (!url || candidates.includes(url)) return;

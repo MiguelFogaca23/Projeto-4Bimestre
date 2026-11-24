@@ -27,26 +27,19 @@ app.use((req, res, next) => {
 
   next();
 });
-app.use(express.static(frontendPath));
-app.use('/frontend', express.static(frontendPath));
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+// Compatibilidade com URLs usadas antes da organização em pastas.
+const legacyPageRoutes = {
+  '/frontend/catalogo.html': '/frontend/catalogo/catalogo.html',
+  '/frontend/cadastro.html': '/frontend/auth/cadastro.html',
+  '/frontend/login.html': '/frontend/auth/login.html',
+  '/frontend/livros.html': '/frontend/livros/livros.html',
+  '/frontend/emprestimos.html': '/frontend/emprestimos/emprestimos.html',
+  '/frontend/admin-emprestimos.html': '/frontend/emprestimos/admin-emprestimos.html',
+};
 
-// Compatibilidade com URLs abertas antes da organização temporária das pastas.
-const legacyFrontendPages = new Set([
-  'catalogo.html',
-  'cadastro.html',
-  'login.html',
-  'livros.html',
-  'emprestimos.html',
-  'admin-emprestimos.html',
-]);
-
-app.get('/frontend/pages/:page', (req, res) => {
-  if (legacyFrontendPages.has(req.params.page)) {
-    return res.redirect(301, `/frontend/${req.params.page}`);
-  }
-  return res.status(404).json({ error: 'Página não encontrada' });
-});
+for (const [legacyRoute, organizedRoute] of Object.entries(legacyPageRoutes)) {
+  app.get(legacyRoute, (req, res) => res.redirect(301, organizedRoute));
+}
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
@@ -57,11 +50,12 @@ app.get('/menu', (req, res) => {
 });
 
 const pageRoutes = {
-  '/login': 'login.html',
-  '/catalogo': 'catalogo.html',
-  '/emprestimos': 'emprestimos.html',
-  '/livros': 'livros.html',
-  '/admin-emprestimos': 'admin-emprestimos.html',
+  '/login': 'auth/login.html',
+  '/cadastro': 'auth/cadastro.html',
+  '/catalogo': 'catalogo/catalogo.html',
+  '/emprestimos': 'emprestimos/emprestimos.html',
+  '/livros': 'livros/livros.html',
+  '/admin-emprestimos': 'emprestimos/admin-emprestimos.html',
 };
 
 for (const [route, page] of Object.entries(pageRoutes)) {
@@ -69,6 +63,10 @@ for (const [route, page] of Object.entries(pageRoutes)) {
     res.sendFile(path.join(frontendPath, page));
   });
 }
+
+app.use(express.static(frontendPath));
+app.use('/frontend', express.static(frontendPath));
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 app.use('/login', require('./routes/loginRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));

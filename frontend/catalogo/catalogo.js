@@ -34,7 +34,7 @@ function criarCard(livro) {
       window.alert('Empréstimo solicitado! O prazo de devolução é de 14 dias.');
       await carregarCatalogo();
     } catch (error) {
-      if (error.message.includes('login')) window.location.href = '/frontend/login.html';
+      if (error.message.includes('login')) window.location.href = '/frontend/auth/login.html';
       else window.alert(error.message);
     }
   });

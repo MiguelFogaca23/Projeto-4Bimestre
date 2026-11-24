@@ -31,8 +31,8 @@ async function entrar(event) {
       }),
     });
     window.location.href = user.perfil === 'admin'
-      ? '/frontend/livros.html'
-      : '/frontend/catalogo.html';
+      ? '/frontend/livros/livros.html'
+      : '/frontend/catalogo/catalogo.html';
   } catch (error) {
     mostrarMensagem(elements.message, error.message, true);
   }

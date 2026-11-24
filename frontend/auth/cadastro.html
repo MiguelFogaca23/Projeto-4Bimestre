@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Criar conta | Biblioteca Aberta</title>
-  <link rel="stylesheet" href="/frontend/styles.css">
+  <link rel="stylesheet" href="/frontend/shared/styles.css">
 </head>
 <body class="login-page">
   <main class="login-layout">
@@ -15,7 +15,7 @@
         <h1>Faça parte da nossa biblioteca.</h1>
         <p>Crie sua conta para reservar livros e acompanhar seus empréstimos em um só lugar.</p>
       </div>
-      <a class="catalog-link" href="/frontend/catalogo.html">Conhecer o catálogo <span aria-hidden="true">→</span></a>
+      <a class="catalog-link" href="/frontend/catalogo/catalogo.html">Conhecer o catálogo <span aria-hidden="true">→</span></a>
     </section>
     <section class="panel login-card" aria-labelledby="register-title">
       <div class="login-icon" aria-hidden="true">B</div>
@@ -38,10 +38,10 @@
         <button type="submit">Criar conta</button>
         <p class="form-message" id="register-message" role="status"></p>
       </form>
-      <p class="auth-switch">Já tem uma conta? <a href="/frontend/login.html">Entrar</a></p>
+      <p class="auth-switch">Já tem uma conta? <a href="/frontend/auth/login.html">Entrar</a></p>
     </section>
   </main>
   <footer class="login-footer"><p>Desenvolvido por: <strong>Miguel Fogaça Alves Pereira</strong> | Turma: <strong>M32</strong> | 2026</p></footer>
-  <script src="/frontend/common.js" defer></script><script src="/frontend/cadastro.js" defer></script>
+  <script src="/frontend/shared/common.js" defer></script><script src="/frontend/auth/cadastro.js" defer></script>
 </body>
 </html>

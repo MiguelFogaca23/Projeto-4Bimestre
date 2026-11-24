@@ -87,7 +87,7 @@ async function inicializarPaginaEmprestimos() {
   try {
     const data = await atualizarNavegacao();
     if (!data.autenticado) {
-      window.location.href = '/frontend/login.html';
+      window.location.href = '/frontend/auth/login.html';
       return;
     }
     await carregarEmprestimos();
