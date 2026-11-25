@@ -37,6 +37,15 @@ async function solicitar(req, res) {
       error.statusCode = 404;
       throw error;
     }
+    const existingLoan = await client.query(
+      "SELECT EXISTS (SELECT 1 FROM emprestimos WHERE leitor_id=$1 AND livro_id=$2 AND status='ativo') AS possui_ativo",
+      [req.user.readerId, livroId],
+    );
+    if (existingLoan.rows[0].possui_ativo) {
+      const error = new Error('Você já possui este livro emprestado.');
+      error.statusCode = 409;
+      throw error;
+    }
     const active = await client.query(
       "SELECT COUNT(*)::int AS quantidade FROM emprestimos WHERE livro_id=$1 AND status='ativo'",
       [livroId],

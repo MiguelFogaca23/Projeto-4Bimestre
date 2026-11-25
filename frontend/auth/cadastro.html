@@ -30,10 +30,28 @@
           <input name="email" type="email" autocomplete="email" maxlength="180" required>
         </label>
         <label class="field">Senha (mínimo 8 caracteres)
-          <input name="senha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+          <span class="password-field">
+            <input name="senha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+            <button class="password-toggle" type="button" aria-label="Mostrar senha" aria-pressed="false">
+              <svg class="password-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path class="eye-slash" d="m4 4 16 16"></path>
+              </svg>
+            </button>
+          </span>
         </label>
         <label class="field">Confirme sua senha
-          <input name="confirmar-senha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+          <span class="password-field">
+            <input name="confirmar-senha" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+            <button class="password-toggle" type="button" aria-label="Mostrar senha" aria-pressed="false">
+              <svg class="password-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                <circle cx="12" cy="12" r="2.5"></circle>
+                <path class="eye-slash" d="m4 4 16 16"></path>
+              </svg>
+            </button>
+          </span>
         </label>
         <button type="submit">Criar conta</button>
         <p class="form-message" id="register-message" role="status"></p>

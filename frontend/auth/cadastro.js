@@ -34,6 +34,17 @@ async function cadastrarUsuario(event) {
 }
 
 function inicializarPaginaCadastro() {
+  elements.form.querySelectorAll('.password-toggle').forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const password = toggle.closest('.password-field').querySelector('input');
+      const mostrar = password.type === 'password';
+
+      password.type = mostrar ? 'text' : 'password';
+      toggle.classList.toggle('is-visible', mostrar);
+      toggle.setAttribute('aria-label', `${mostrar ? 'Ocultar' : 'Mostrar'} senha`);
+      toggle.setAttribute('aria-pressed', String(mostrar));
+    });
+  });
   elements.form.addEventListener('submit', cadastrarUsuario);
 }
 
