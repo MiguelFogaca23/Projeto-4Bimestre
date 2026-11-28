@@ -30,6 +30,7 @@ async function entrar(event) {
         senha: formData.get('senha'),
       }),
     });
+
     window.location.href = user.perfil === 'admin'
       ? '/frontend/livros/livros.html'
       : '/frontend/catalogo/catalogo.html';
